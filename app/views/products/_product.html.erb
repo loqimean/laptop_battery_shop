@@ -1,0 +1,39 @@
+<div class="flex flex-wrap w-full border border-gray-100 rounded-md shadow-sm">
+  <div class="w-full p-1 md:p-2">
+    <div id="<%= dom_id(product) %>">
+
+      <div class="grid grid-cols-1 gap-4">
+        <%= image_tag product.link, class: "w-full h-64 object-fit object-cover" %>
+
+        <p class="text-3xl font-semibold line-clamp-1">
+          <%= product.name %>
+        </p>
+
+        <p class="line-clamp-1">
+          <%= product.description %>
+        </p>
+
+        <p>
+          Price: <%= number_to_currency(product.price, unit: "₴ ") %>
+        </p>
+
+        <p>
+          Available: <%= product.balance %>
+        </p>
+      </div>
+
+
+      <%= link_to "Show this product", product, class: "btn-black mt-5" %>
+
+      <hr class="mt-6">
+
+      <div class="relative mb-3">
+        <% if product.balance.nonzero? %>
+          <%= render "cart/buy_form", product: product %>
+        <% else %>
+          <p class="text-3xl text-grey-400">Out of stock</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>One Stop Shop</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+
+    <script src="https://kit.fontawesome.com/c34a6ab486.js" crossorigin="anonymous"></script>
+  </head>
+
+  <body class="flex flex-col min-h-screen">
+    <%= render 'layouts/header', products_count: @products_count %>
+    <%= render "shared/flash" %>
+
+    <div class="flex-grow">
+      <%= yield %>
+    </div>
+    <%= any_login_here if defined?(AnyLogin) %>
+    <%= render 'layouts/footer' %>
+  </body>
+</html>

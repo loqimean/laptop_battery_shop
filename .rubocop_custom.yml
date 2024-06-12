@@ -1,0 +1,19 @@
+Layout/ExtraSpacing:
+  Exclude:
+    - "**/config/environments/**/*"
+    - "**/config/application.rb"
+    - "**/config/environment.rb"
+    - "**/config/puma.rb"
+    - "**/config/boot.rb"
+    - "**/spec/*_helper.rb"
+    - "**/spec/**/support/**/*"
+    - "lib/generators/**/*"
+
+Style/ClassAndModuleChildren:
+  Exclude:
+    - "**/config/application.rb"
+
+Rails/BulkChangeTable:
+  Exclude:
+    - "**/db/migrate/2021*"
+    - "**/db/migrate/2022*"

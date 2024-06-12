@@ -1,0 +1,4 @@
+<%= form_with url: update_amount_product_in_cart_path(product) do |f| %>
+  <%= f.number_field :amount, class: "input-field w-24 h-9 inline-block", value: @cart.product_amount(product), min: 1 %>
+  <%= f.submit "Change amount", class: "btn-black" %>
+<% end %>

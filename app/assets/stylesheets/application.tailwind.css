@@ -1,0 +1,41 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "./components/buttons.css";
+@import "tailwindcss/utilities";
+
+@layer components {
+  .input-field {
+    @apply block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2;
+  }
+
+  .nav-item {
+    @apply p-0 text-neutral-800 hover:text-neutral-400 focus:text-neutral-700 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-neutral-800 dark:focus:text-neutral-400 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400;
+  }
+
+  .red-pill {
+    @apply absolute bottom-auto left-auto right-8 top-7 z-10 inline-block -translate-y-1/2 translate-x-2/4 rotate-0 skew-x-0 skew-y-0 scale-x-100 scale-y-100 whitespace-nowrap rounded-full bg-red-700 px-2.5 py-1 text-center align-baseline text-xs font-bold leading-none text-white;
+  }
+  .logo-image {
+    @apply h-fit w-48;
+  }
+
+  .table-item {
+    @apply whitespace-nowrap px-6 py-4;
+  }
+
+  p[name=notice] {
+    @apply py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg text-center inline-block;
+  }
+
+  p[name=alert] {
+    @apply py-2 px-3 bg-red-500 mb-5 text-white font-medium rounded-lg text-center inline-block;
+  }
+
+  .dropdown-custom-item {
+    @apply bg-gray-200 hover:bg-gray-400 py-2 px-4 block w-full;
+  }
+
+  .dropdown:hover .dropdown-menu {
+    @apply block;
+  }
+}

@@ -1,0 +1,37 @@
+<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), defaults: {
+                                                                                          input_html: { class: 'input-field' },
+                                                                                          label_html: { class: "text-xl" },
+                                                                                          hint_html: {class: "text-sm text-neutral-500" }
+                                                                                        }) do |f| %>
+
+  <%= f.input :email, required: true, input_html: { autocomplete: "email" }%>
+
+  <div data-controller="showpassword">
+      <%= f.input :password,
+              required: false,
+              hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
+              input_html: { data: { showpassword_target: "input", action: "keyup->showpassword#displayPassword" }} %>
+
+      <%= f.input :password_confirmation, required: false, input_html: { autocomplete: "new-password" } %>
+
+      <% if user_signed_in? %>
+        <div data-showpassword-target="outputContainer">
+          <%= f.input :current_password,
+                      hint: "Please type your password to confirm changes",
+                      input_html: { data: { showpassword_target: "outputField"} } %>
+        </div>
+      <% end %>
+  </div>
+
+  <%= f.input :first_name, required: true %>
+
+  <%= f.input :last_name, required: true %>
+
+  <%= f.input :address %>
+
+  <%= f.input :phone, onkeyup:"passwordConfirmation()", remote: true %>
+
+  <div class="form-actions">
+    <%= f.button :submit, action_type == "new" ? "Sign up" : "Update account", class: 'btn-black' %>
+  </div>
+<% end %>

@@ -1,0 +1,13 @@
+@layer components {
+  .btn-black {
+    @apply inline-block rounded bg-neutral-800 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-neutral-50 hover:cursor-pointer;
+  }
+
+  .btn-grey {
+    @apply inline-block rounded bg-gray-200 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-black hover:cursor-pointer;
+  }
+
+  .btn-red {
+    @apply inline-block rounded bg-red-500 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white hover:cursor-pointer;
+  }
+}

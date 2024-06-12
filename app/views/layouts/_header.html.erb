@@ -1,0 +1,42 @@
+<nav class="relative flex flex-wrap items-center justify-between w-full py-2 text-black shadow-lg bg-neutral-100 dark:text-neutral-200 dark:bg-neutral-600">
+  <div class="flex flex-wrap items-center justify-between w-full px-3">
+    <div class="flex items-center justify-between" id="links">
+      <%= link_to "OnlineStore", root_path, class: "font-bold text-2xl" %>
+      <hr class="h-10 mx-4 border-r border-neutral-500">
+      <%= link_to "Home", root_path, class: "nav-item" %>
+      <%= link_to "Products", products_path, class: "nav-item" %>
+      <%= link_to "About Us", about_path, class: "nav-item" %>
+    </div>
+
+    <div class="flex items-center ml-auto">
+      <%= form_with url: home_search_path, method: :get, role: "search", class: "relative mr-5" do |form| %>
+        <%= form.text_field :q, class: "input-field mt-0 text-black", placeholder: "Search", value: params[:q] %>
+        <%= link_to_if(
+              params[:q].present?,
+              "x",
+              products_path,
+              class: "absolute text-neutral-800 right-2 font-bold top-1/2 transform -translate-y-1/2"
+            ) {} %>
+      <% end %>
+
+      <% if user_signed_in? %>
+        <div class="relative inline-block dropdown cursor-context-menu">
+          <p class="me-5 "><%= current_user.full_name %></p>
+          <ul class="absolute hidden pt-1 text-gray-700 dropdown-menu">
+            <li><%= link_to "Show my orders", orders_path, class: "dropdown-custom-item" %></li>
+            <li><%= link_to "Edit my account", edit_user_registration_path, class: "dropdown-custom-item" %></li>
+            <li><%= link_to "Log out", destroy_user_session_path, data: { turbo_method: :delete }, class: "dropdown-custom-item" %></li>
+          </ul>
+        </div>
+      <% else %>
+        <%= link_to "Sign in", new_user_session_path, class: "btn-grey me-3" %>
+        <%= link_to "Register", new_user_registration_path, class: "btn-black me-5" %>
+      <% end %>
+    </div>
+
+    <%= link_to cart_index_path do %>
+      <i class="fa fa-solid fa-cart-shopping fa-2x nav-item me-5"></i>
+      <div class="red-pill"><%= products_count %></div>
+    <% end %>
+  </div>
+</nav>

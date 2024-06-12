@@ -1,0 +1,53 @@
+version: "3"
+
+services:
+  postgres:
+    image: postgres:13
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+      POSTGRES_DB: rails_db
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    networks:
+      - backend
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.1
+    restart: always
+    environment:
+      discovery.type: single-node
+      ES_JAVA_OPTS: -Xms2g -Xmx2g
+    ports:
+      - "9200:9200"
+    volumes:
+      - elasticsearch:/usr/share/elasticsearch/data
+    networks:
+      - backend
+
+  app:
+    environment:
+      DATABASE_URL: postgres://postgres:password@postgres/rails_db
+      ELASTICSEARCH_HOST: elasticsearch
+    build: .
+    restart: always
+    depends_on:
+      - postgres
+      - elasticsearch
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/rails
+    networks:
+      - backend
+
+volumes:
+  postgres:
+  elasticsearch:
+
+networks:
+  backend:
+    driver: "bridge"

@@ -1,0 +1,64 @@
+<div class="mx-auto md:w-2/3 w-full flex">
+  <div class="mx-auto">
+    <div class="flex flex-col text-base sm:-mx-6 lg:-mx-8">
+      <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+
+        <div class="block shadow-2xl p-6">
+          <ul class="ms-6 w-96">
+            <h1 class="font-bold text-3xl mb-5">Order №<%= @order.id %></h1>
+            <li class="mb-4"><%= @order.customer_full_name %></li>
+            <li class="mb-4"><%= @order.address %></li>
+            <li class="mb-4"><%= @order.phone %></li>
+          </ul>
+          <table class="min-w-full text-left text-sm font-light">
+            <thead class="border-b font-medium dark:border-neutral-500 text-left">
+              <tr>
+                <th scope="col" class="pe-6 py-4">Title</th>
+                <th scope="col" class="pe-6 py-4">Price</th>
+                <th scope="col" class="pe-6 py-4">Amount</th>
+                <th scope="col" class="pe-6 py-4">Sum</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @order.products.each do |product| %>
+                <tr class="border-b">
+                  <td class="cart-item"><%= product.name %></td>
+                  <td class="cart-item"><%= number_to_currency(product.price, unit: "₴ ") %></td>
+                  <td class="cart-item"><%= @order.product_amount(product) %></td>
+                  <td class="cart-item"><%= number_to_currency(@order.product_sum(product), unit: "₴ ") %></td>
+                </tr>
+              <% end %>
+
+              <tr class="border-b">
+                <td colspan="3" class="whitespace-nowrap font-medium pe-11 py-2 text-right">
+                  Total sum
+                </td>
+                <td class="whitespace-nowrap pe-6 py-2"><%= number_to_currency(@order.total_sum, unit: "₴ ") %></td>
+              </tr>
+
+              <% if @order.promocode.present? %>
+                <tr class="border-b">
+                  <td colspan="3" class="whitespace-nowrap font-medium pe-11 py-2 text-right">
+                    Discount
+                  </td>
+                  <td class="whitespace-nowrap pe-6 py-2"><%= @order.discount %></td>
+                </tr>
+
+                <tr class="border-b">
+                  <td colspan="3" class="whitespace-nowrap font-medium pe-11 py-2 text-right">
+                    Final sum
+                  </td>
+                  <td class="whitespace-nowrap pe-6 py-2"><%= number_to_currency(@order.final_sum, unit: "₴ ") %></td>
+                </tr>
+              <% end %>
+              </tbody>
+
+          </table>
+          <%= link_to "PAY", pay_path(amount: @order.total_sum, discount: @order.promocode&.discount, discount_is_fixed: @order.promocode&.discount_is_fixed), class:"btn-black" %>
+          <%# pay_path(amount: @order.total_sum, discount: @order.discount, discount_is_fixed: @order.discount_is_fixed) %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

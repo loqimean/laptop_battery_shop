@@ -1,0 +1,19 @@
+<div>
+  <%= link_to :back do %>
+    <i class="fa-solid fa-chevron-left fa-2xl absolute p-5 mt-5"></i>
+  <% end %>
+</div>
+
+<div class="flex justify-center items-center">
+  <div class="text-center w-2/5 text-xl">
+    <p class="py-5 text-2xl">Edit <%= resource_name.to_s.humanize %></p>
+
+    <%= render "devise/shared/user_data_form", action_type: 'edit' %>
+
+    <div class="mt-5">
+      <hr>
+      <p>Unhappy?</p>
+      <%= button_to "Delete my account", registration_path(resource_name), class: "btn-red mb-5 mt-3", data: { turbo_confirm: "Are you sure?" }, method: :delete %>
+    </div>
+  </div>
+</div>

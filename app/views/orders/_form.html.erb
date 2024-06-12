@@ -1,0 +1,12 @@
+<%= simple_form_for order, defaults: { input_html: { class: 'input-field w-2/3' } } do |f| %>
+  <%= f.hidden_field :customer_id,  value: current_user&.id %>
+  <%= f.input :first_name, input_html: { value: current_user&.first_name } %>
+  <%= f.input :last_name, input_html: { value: current_user&.last_name } %>
+  <%= f.input :address, input_html: { value: current_user&.address } %>
+  <%= f.input :phone, input_html: { value: current_user&.phone } %>
+
+  <p>Promocode</p>
+  <%= text_field_tag :promocode, '', class: 'input-field w-full' %><br>
+
+  <%= f.button :submit, class: 'btn-black mb-5 p-5' %>
+<% end %>
